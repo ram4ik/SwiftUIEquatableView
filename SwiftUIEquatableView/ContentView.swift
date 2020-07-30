@@ -23,7 +23,7 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .padding()
             
-            NumberView(number: number)
+            EquatableView(content: NumberView(number: number))
         }
     }
 }
@@ -34,7 +34,11 @@ struct NumberView: View {
     var body: some View {
         print("Refresh number \(number)")
         
-        return Text(number.isTriple ? "Triple" : "Not Triple").font(.largeTitle)
+        return Text(number.isTriple ? "Triple" : "Not Triple")
+            .font(.largeTitle)
+            .onTapGesture {
+                print(number)
+            }
     }
 }
 
