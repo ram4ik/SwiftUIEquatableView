@@ -8,9 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var number: Int = 1
+    
     var body: some View {
-        Text("Hello, world!").padding()
+        VStack {
+            Button(action: {
+                number += 1
+            }, label: {
+                Text("Change number")
+                    .font(.largeTitle)
+            })
+            
+            Text("\(number)")
+                .font(.largeTitle)
+                .padding()
+            
+            NumberView(number: number)
+        }
     }
+}
+
+struct NumberView: View {
+    let number: Int
+    
+    var body: some View {
+        print("Refresh number \(number)")
+        
+        return Text(number.isTriple ? "Triple" : "Not Triple").font(.largeTitle)
+    }
+}
+
+extension NumberView: Equatable {
+    static func == (lhs: NumberView, rhs: NumberView) -> Bool {
+        lhs.number.isTriple == rhs.number.isTriple
+    }
+}
+
+extension Int {
+    var isTriple: Bool { self % 3 == 0 }
 }
 
 struct ContentView_Previews: PreviewProvider {
